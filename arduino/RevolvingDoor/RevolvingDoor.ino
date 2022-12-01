@@ -16,11 +16,19 @@ void loop() {
     char isDetectChair = Serial.read();
     if(isDetectChair == 'p'){
       digitalWrite(LED_R, HIGH);
-      turnOffAll();
+      digitalWrite(LED_G, LOW);
+      digitalWrite(LED_Y, LOW);
     }
     else if(isDetectChair == 'n'){
       digitalWrite(LED_Y, HIGH);
-      turnOffAll();
+      digitalWrite(LED_R, LOW);
+      digitalWrite(LED_G, LOW);
+    }
+    else if(isDetectChair == 'c'){
+      digitalWrite(LED_G, HIGH);
+      digitalWrite(LED_R, LOW);
+      digitalWrite(LED_Y, LOW);
+      delay(3000);
     }
   }
 }
