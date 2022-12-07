@@ -8,8 +8,6 @@
  
  휠체어가 인식된다면 속도를 줄이고, 사람이 인식된다면 정상속도로 작동하게 됩니다.
 
----
-
 ## 🙍‍♂️ Member
 
 - 박승민, 김연욱, 김현호, 조민호
@@ -98,7 +96,7 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
 - 라즈베이 파이에 yolov5 및 pytorch 환경 설정
 
     **pytorch 1.13 설치 중**
-    
+
     ![KakaoTalk_Photo_2022-12-07-16-40-46](https://user-images.githubusercontent.com/78605779/206117753-120bf49f-952d-4270-837c-775a470e1018.jpeg)
 
 - 모터 속도 제어
