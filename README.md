@@ -117,3 +117,9 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
 ![creating_prototype_model_2](https://user-images.githubusercontent.com/78605779/206104395-7c1dd035-7672-49da-bb9e-fb1074904d98.jpeg)
 
 ![create_prototype_model](https://user-images.githubusercontent.com/78605779/206104210-78474e6c-0fa3-4cd3-b8da-84960efcbc15.gif)
+
+## 차주 계획
+
+- 성인과 아이 분류 도입
+- 모터 속도 제어 개선
+- grafana 시각화
