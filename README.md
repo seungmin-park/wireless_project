@@ -47,45 +47,55 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
 
 ## 🤷‍♂️ 실행 방법
 
-<!-- yolov5 설치 과정 추가 예정 -->
+- Yolov5 설치
+
+    ```bash
+    $ git clone https://github.com/ultralytics/yolov5
+    ```
+
+    ```bash
+    $ pip3 install -r requirements.txt
+    ```
+
+- [PyTorch 1.12.0 , torchvision 0.13.0 설치](https://qengineering.eu/install-pytorch-on-raspberry-pi-4.html)
 
 - 아두이노와 시리얼 통신 설정
 
-    1. serial 모듈 import
+    ### serial 모듈 import
 
-        ```python
-        import serial
-        ```
+    ```python
+    import serial
+    ```
 
-        > 만약 serial 모듈이 없다면 'pip install serial'을 통해서 설치
+    > 만약 serial 모듈이 없다면 'pip install serial'을 통해서설치
 
-    2. 시리얼 통신 연결
+    ### 시리얼 통신 연결
 
-        ```python
-        ser = serial.Serial('{SERIAL_PORT}', {BAUDRATE})
-        ```
-    
-    3. 시리얼 통신 코드 추가
+    ```python
+    ser = serial.Serial('{SERIAL_PORT}', {BAUDRATE})
+    ```
 
-        yolov5에서 객체를 탐지해 결과 생성한 부분 밑에 시리얼 통신하고자하는 코드 추가
+    ### 시리얼 통신 코드 추가
 
-        **yolov5 결과 출력 코드**
+    yolov5에서 객체를 탐지해 결과 생성한 부분 밑에 시리얼통신하고자하는 코드추가
 
-        ```python
-        LOGGER.info(f"{s}{'' if len(det) else '(no detections), '}{dt[1].dt * 1E3:.1f}ms")
-        ```
+    **yolov5 detecy.py의 결과 출력 코드**
 
-        ```python
-        # detect wheelchair
-        if 'w' in s:
-            ser.write("w".encode())
-        # detect person
-        elif 'p' in s:
-            ser.write("p".encode())
-        # none detect
-        else:
-            ser.write("n".encode())
-        ```
+    ```python
+    LOGGER.info(f"{s}{'' if len(det) else '(nodetections), '{dt[1].dt * 1E3:.1f}ms")
+    ```
+
+    ```python
+    # detect wheelchair
+    if 'w' in s:
+        ser.write("w".encode())
+    # detect person
+    elif 'p' in s:
+        ser.write("p".encode())
+    # none detect
+    else:
+        ser.write("n".encode())
+    ```
 
 ## 🚨 프로젝트를 진행하며 겪었던 ISSUE
 
