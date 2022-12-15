@@ -149,6 +149,10 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
 
 ![KakaoTalk_Photo_2022-12-15-23-43-57](https://user-images.githubusercontent.com/78605779/207892851-62cfefb5-3a5b-4deb-b58a-79be99e9e47c.jpeg)
 
+### 탐지된 객체에 따른 회전문 속도 제어
+
+![control_of_revolving_door_speed](https://inhatc-demp.s3.ap-northeast-2.amazonaws.com/ezgif.com-gif-maker.gif)
+
 ### 회전문 프로토타입모델 제작 과정
 
 ![creating_prototype_model_2](https://user-images.githubusercontent.com/78605779/206104392-6c022b7f-6b3c-4a8a-8e23-b20b593eb876.jpeg)
