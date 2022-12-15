@@ -15,34 +15,22 @@ void setup() {
  
 void loop() {
   if(Serial.available()){
-    char isDetectChair = Serial.read();
+    char detectionCode = Serial.read();
     
-    if (isDetectChair == 'c' || isDetectChair == 'w') {
+    if (detectionCode == 'c' || detectionCode == 'w') {
       detectTarget();
       
-    } else if(isDetectChair == 'a') {
+    } else if(detectionCode == 'a') {
       detectAdult();
       
-    } else if (isDetectChair == 'e') {
+    } else if (detectionCode == 'e') {
       turnOff();
       
-    } else if (isDetectChair == 'n') {
+    } else if (detectionCode == 'n') {
       detectNone();
       
     }
   }
-}
- 
-void turnOffAll() {
-  digitalWrite(LED_R, LOW);
-  digitalWrite(LED_Y, LOW);
-  digitalWrite(LED_G, LOW);
-}
- 
-void turnOnAll() {
-  digitalWrite(LED_R, HIGH);
-  digitalWrite(LED_Y, HIGH);
-  digitalWrite(LED_G, HIGH);
 }
 
 // Wheelchair, Child detect
@@ -53,7 +41,9 @@ void detectTarget() {
   digitalWrite(LED_G, LOW);
   
   // motor control
-  analogWrite(MOTOR_RUN, 63); // 0~255 63 -> 25% speed
+  analogWrite(MOTOR_RUN, 60); // acc
+  delay(2);
+  analogWrite(MOTOR_RUN, 18); // min speed
   analogWrite(MOTOR_STOP, 0);
 
   delay(2000); // wheelchair delay
@@ -67,7 +57,7 @@ void detectAdult() {
   digitalWrite(LED_G, HIGH);
   
   // motor control
-  analogWrite(MOTOR_RUN, 127); // 0~255 127 -> 50% speed
+  analogWrite(MOTOR_RUN, 28); 
   analogWrite(MOTOR_STOP, 0);
 }
 
