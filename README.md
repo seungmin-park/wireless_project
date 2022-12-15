@@ -61,18 +61,20 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
 
 - 아두이노와 시리얼 통신 설정
 
-    ### serial 모듈 import
+    ### serial 모듈 및 influxDB 모듈 import
 
     ```python
     import serial
+    import my_influxDB
     ```
 
     > 만약 serial 모듈이 없다면 'pip install serial'을 통해서설치
 
-    ### 시리얼 통신 연결
+    ### 시리얼 통신 연결 코드 추가
 
     ```python
-    ser = serial.Serial('{SERIAL_PORT}', {BAUDRATE})
+    if __name__ == "__main__":
+        seri = serial.Serial('{SERIAL_PORT}', {BAUDRATE})
     ```
 
     ### 시리얼 통신 코드 추가
@@ -86,15 +88,51 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
     ```
 
     ```python
-    # detect wheelchair
-    if 'w' in s:
-        ser.write("w".encode())
-    # detect person
-    elif 'p' in s:
-        ser.write("p".encode())
-    # none detect
-    else:
-        ser.write("n".encode())
+    if y2 >= y_cnt:
+        if 'wheelchair' in s:
+            seri.write('w'.encode())
+            detectNo = 1
+        elif 'person' in s:
+            #child or adult
+            if (y2 - y1) <= 200:
+                # child
+                seri.write('c'.encode())
+                detectNo = 2
+            else:
+                # adult
+                seri.write('a'.encode())
+                detectNo = 3
+        else:
+            seri.write('n'.encode())
+            detectNo = 0
+        
+        y2 = 0
+        my_influxDB.setInfluxDB(detectNo)
+    ```
+
+    ### 인식된 객체의 좌표값 구하기
+
+    ```python
+    # Write results
+    for *xyxy, conf, cls in reversed(det):
+        if save_txt:  # Write to file
+            xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
+            print(xywh)
+            line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
+            with open(f'{txt_path}.txt', 'a') as f:
+                f.write(('%g ' * len(line)).rstrip() % line + '\n')
+
+        if save_img or save_crop or view_img:  # Add bbox to image
+            c = int(cls)  # integer class
+            label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+            annotator.box_label(xyxy, label, color=colors(c, True))
+
+            # 인식된 객체의 y 좌표값
+            y1 = xyxy[1]
+            y2 = xyxy[3]
+
+        if save_crop:
+            save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
     ```
 
 ## 🚨 프로젝트를 진행하며 겪었던 ISSUE
@@ -127,9 +165,3 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
 ![creating_prototype_model_2](https://user-images.githubusercontent.com/78605779/206104395-7c1dd035-7672-49da-bb9e-fb1074904d98.jpeg)
 
 ![create_prototype_model](https://user-images.githubusercontent.com/78605779/206104210-78474e6c-0fa3-4cd3-b8da-84960efcbc15.gif)
-
-## 차주 계획
-
-- 성인과 아이 분류 도입
-- 모터 속도 제어 개선
-- grafana 시각화
