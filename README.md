@@ -145,6 +145,10 @@ Roboflow에서 데이터셋을 만들고, Yolov5를 활용하여 학습하고 �
 
 > 테스트 데이터 출처: https://www.youtube.com/watch?v=XUhPIRwn8a8
 
+### Grafana를 통해 탐지된 객체 시각화
+
+![KakaoTalk_Photo_2022-12-15-23-43-57](https://user-images.githubusercontent.com/78605779/207892851-62cfefb5-3a5b-4deb-b58a-79be99e9e47c.jpeg)
+
 ### 회전문 프로토타입모델 제작 과정
 
 ![creating_prototype_model_2](https://user-images.githubusercontent.com/78605779/206104392-6c022b7f-6b3c-4a8a-8e23-b20b593eb876.jpeg)
